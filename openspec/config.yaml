@@ -1,0 +1,10 @@
+schema: spec-driven
+
+context: |
+  Project: PALS (PAC Analysis of Legislative Scorecards).
+  Tech stack: Python (uv), pandas/polars/duckdb, Jupyter notebooks, Quarto, GitHub Pages.
+  Domain: US campaign finance. Data from FEC bulk files (cm, cn, ccl, pas2/itpas2, oth/itoth).
+  Pilot corporate PAC: Google; design for adding companies via config and periodic FEC refresh.
+  Key requirement: attribute money from a source PAC to each candidate, directly and
+  through intermediary committees/leadership PACs, without double counting.
+  Scorecards (HRC, NRA, ...) are joined to candidates for analysis.

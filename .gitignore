@@ -1,0 +1,15 @@
+.DS_Store
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+__marimo__/
+# Raw FEC bulk downloads and derived data are reproducible; keep out of git
+data/raw/
+data/interim/
+data/processed/
+# Quarto
+/.quarto/
+/_site/
+/site/_site/
+/site/.quarto/
+*_files/
