@@ -1,0 +1,541 @@
+chamber,state,district,name,party,hrc_118th_congress_score
+Senate,Alabama,Statewide,Katie Britt,R,0
+Senate,Alabama,Statewide,Tommy Tuberville,R,0
+Senate,Alaska,Statewide,Dan Sullivan,R,0
+Senate,Alaska,Statewide,Lisa Murkowski,R,39
+Senate,Arizona,Statewide,Kyrsten Sinema,I,82
+Senate,Arizona,Statewide,Mark Kelly,D,88
+Senate,Arkansas,Statewide,John Boozman,R,0
+Senate,Arkansas,Statewide,Tom Cotton,R,0
+Senate,California,Statewide,Alex Padilla,D,90
+Senate,California,Statewide,Laphonza Butler,D,100
+Senate,Colorado,Statewide,John Hickenlooper,D,91
+Senate,Colorado,Statewide,Michael Bennet,D,88
+Senate,Connecticut,Statewide,Christopher Murphy,D,91
+Senate,Connecticut,Statewide,Richard Blumenthal,D,91
+Senate,Delaware,Statewide,Chris Coons,D,91
+Senate,Delaware,Statewide,Thomas Carper,D,91
+Senate,Florida,Statewide,Marco Rubio,R,0
+Senate,Florida,Statewide,Rick Scott,R,0
+Senate,Georgia,Statewide,Jon Ossoff,D,85
+Senate,Georgia,Statewide,Raphael Warnock,D,81
+Senate,Hawaii,Statewide,Brian Schatz,D,85
+Senate,Hawaii,Statewide,Mazie Hirono,D,91
+Senate,Idaho,Statewide,James Risch,R,0
+Senate,Idaho,Statewide,Mike Crapo,R,0
+Senate,Illinois,Statewide,Richard Durbin,D,90
+Senate,Illinois,Statewide,Tammy Duckworth,D,91
+Senate,Indiana,Statewide,Mike Braun,R,12
+Senate,Indiana,Statewide,Todd Young,R,0
+Senate,Iowa,Statewide,Chuck Grassley,R,0
+Senate,Iowa,Statewide,Joni Ernst,R,0
+Senate,Kansas,Statewide,Jerry Moran,R,0
+Senate,Kansas,Statewide,Roger Marshall,R,0
+Senate,Kentucky,Statewide,Mitch McConnell,R,0
+Senate,Kentucky,Statewide,Rand Paul,R,9
+Senate,Louisiana,Statewide,John Kennedy,R,0
+Senate,Louisiana,Statewide,"William ""Bill"" Cassidy",R,0
+Senate,Maine,Statewide,Angus King,I,84
+Senate,Maine,Statewide,Susan Collins,R,43
+Senate,Maryland,Statewide,Benjamin Cardin,D,91
+Senate,Maryland,Statewide,Chris Van Hollen,D,91
+Senate,Massachusetts,Statewide,Ed Markey,D,100
+Senate,Massachusetts,Statewide,Elizabeth Warren,D,100
+Senate,Michigan,Statewide,Debbie Stabenow,D,100
+Senate,Michigan,Statewide,Gary Peters,D,91
+Senate,Minnesota,Statewide,Amy Klobuchar,D,91
+Senate,Minnesota,Statewide,Tina Smith,D,91
+Senate,Mississippi,Statewide,Cindy Hyde-Smith,R,0
+Senate,Mississippi,Statewide,Roger Wicker,R,0
+Senate,Missouri,Statewide,Eric Schmitt,R,0
+Senate,Missouri,Statewide,Josh Hawley,R,0
+Senate,Montana,Statewide,Jon Tester,D,82
+Senate,Montana,Statewide,Steven Daines,R,0
+Senate,Nebraska,Statewide,Deb Fischer,R,0
+Senate,Nebraska,Statewide,Pete Ricketts,R,0
+Senate,Nevada,Statewide,Catherine Cortez Masto,D,91
+Senate,Nevada,Statewide,Jacky Rosen,D,91
+Senate,New Hampshire,Statewide,Jeanne Shaheen,D,91
+Senate,New Hampshire,Statewide,Maggie Hassan,D,91
+Senate,New Jersey,Statewide,Cory Booker,D,100
+Senate,New Jersey,Statewide,George Helmy,D,N/A
+Senate,New Mexico,Statewide,Ben Ray Luján,D,91
+Senate,New Mexico,Statewide,Martin Heinrich,D,88
+Senate,New York,Statewide,Charles Schumer,D,89
+Senate,New York,Statewide,Kirsten Gillibrand,D,88
+Senate,North Carolina,Statewide,Ted Budd,R,0
+Senate,North Carolina,Statewide,Thom Tillis,R,0
+Senate,North Dakota,Statewide,John Hoeven,R,0
+Senate,North Dakota,Statewide,Kevin Cramer,R,0
+Senate,Ohio,Statewide,JD Vance,R,0
+Senate,Ohio,Statewide,Sherrod Brown,D,91
+Senate,Oklahoma,Statewide,James Lankford,R,0
+Senate,Oklahoma,Statewide,Markwayne Mullin,R,0
+Senate,Oregon,Statewide,Jeff Merkley,D,100
+Senate,Oregon,Statewide,Ron Wyden,D,100
+Senate,Pennsylvania,Statewide,John Fetterman,D,90
+Senate,Pennsylvania,Statewide,Robert Casey Jr.,D,91
+Senate,Rhode Island,Statewide,Jack Reed,D,91
+Senate,Rhode Island,Statewide,Sheldon Whitehouse,D,91
+Senate,South Carolina,Statewide,Lindsey Graham,R,0
+Senate,South Carolina,Statewide,Tim Scott,R,0
+Senate,South Dakota,Statewide,John Thune,R,0
+Senate,South Dakota,Statewide,Mike Rounds,R,0
+Senate,Tennessee,Statewide,Bill Hagerty,R,0
+Senate,Tennessee,Statewide,Marsha Blackburn,R,0
+Senate,Texas,Statewide,John Cornyn,R,0
+Senate,Texas,Statewide,Ted Cruz,R,0
+Senate,Utah,Statewide,Mike Lee,R,9
+Senate,Utah,Statewide,Mitt Romney,R,0
+Senate,Vermont,Statewide,Bernard Sanders,I,100
+Senate,Vermont,Statewide,Peter Welch,D,100
+Senate,Virginia,Statewide,Mark Warner,D,85
+Senate,Virginia,Statewide,Tim Kaine,D,88
+Senate,Washington,Statewide,Maria Cantwell,D,91
+Senate,Washington,Statewide,Patty Murray,D,90
+Senate,West Virginia,Statewide,Joseph Manchin,I,32
+Senate,West Virginia,Statewide,Shelley Moore Capito,R,0
+Senate,Wisconsin,Statewide,Ron Johnson,R,0
+Senate,Wisconsin,Statewide,Tammy Baldwin,D,100
+Senate,Wyoming,Statewide,Cynthia Lummis,R,0
+Senate,Wyoming,Statewide,John Barrasso,R,0
+House,Alabama,1,Jerry Carl,R,0
+House,Alabama,2,Barry Moore,R,0
+House,Alabama,3,Mike Rogers,R,3
+House,Alabama,4,Robert Aderholt,R,3
+House,Alabama,5,Dale Strong,R,0
+House,Alabama,6,Gary Palmer,R,0
+House,Alabama,7,Terri Sewell,D,93
+House,Alaska,AL,Mary Peltola,D,70
+House,American Samoa,AL,A u m ua R ad e w a g e n,R,N/A
+House,Arizona,1,David Schweikert,R,5
+House,Arizona,2,Eli Crane,R,9
+House,Arizona,3,Ruben Gallego,D,94
+House,Arizona,4,Greg Stanton,D,95
+House,Arizona,5,Andy Biggs,R,12
+House,Arizona,6,Juan Ciscomani,R,11
+House,Arizona,7,Raúl Grijalva,D,100
+House,Arizona,8,Debbie Lesko,R,5
+House,Arizona,9,Paul Gosar,R,5
+House,Arkansas,1,Rick Crawford,R,6
+House,Arkansas,2,French Hill,R,3
+House,Arkansas,3,Steve Womack,R,8
+House,Arkansas,4,Bruce Westerman,R,0
+House,California,1,Doug LaMalfa,R,0
+House,California,2,Jared Huffman,D,100
+House,California,3,Kevin Kiley,R,14
+House,California,4,Mike Thompson,D,95
+House,California,5,Tom McClintock,R,2
+House,California,6,Ami Bera,D,100
+House,California,7,Doris Matsui,D,100
+House,California,8,John Garamendi,D,100
+House,California,9,Josh Harder,D,89
+House,California,10,Mark DeSaulnier,D,100
+House,California,11,Nancy Pelosi,D,96
+House,California,12,Barbara Lee,D,100
+House,California,13,John Duarte,R,17
+House,California,14,Eric Swalwell,D,100
+House,California,15,Kevin Mullin,D,100
+House,California,16,Anna Eshoo,D,95
+House,California,17,Ro Khanna,D,100
+House,California,18,Zoe Lofgren,D,95
+House,California,19,Jimmy Panetta,D,95
+House,California,20,Vince Fong,R,N/A
+House,California,21,Jim Costa,D,95
+House,California,22,David Valadao,R,11
+House,California,23,Jay Obernolte,R,11
+House,California,24,Salud Carbajal,D,95
+House,California,25,Raul Ruiz,D,95
+House,California,26,Julia Brownley,D,100
+House,California,27,Mike Garcia,R,11
+House,California,28,Judy Chu,D,100
+House,California,29,Tony Cárdenas,D,100
+House,California,30,Adam Schiff,D,100
+House,California,31,Grace Napolitano,D,100
+House,California,32,Brad Sherman,D,100
+House,California,33,Pete Aguilar,D,95
+House,California,34,Jimmy Gomez,D,100
+House,California,35,Norma Torres,D,95
+House,California,36,Ted Lieu,D,95
+House,California,37,Sydney Kamlager-Dove,D,100
+House,California,38,Linda Sánchez,D,100
+House,California,39,Mark Takano,D,100
+House,California,40,Young Kim,R,11
+House,California,41,Ken Calvert,R,14
+House,California,42,Robert Garcia,D,100
+House,California,43,Maxine Waters,D,100
+House,California,44,Nanette Diaz Barragán,D,100
+House,California,45,Michelle Steel,R,14
+House,California,46,Lou Correa,D,100
+House,California,47,Katie Porter,D,100
+House,California,48,Darrell Issa,R,8
+House,California,49,Mike Levin,D,95
+House,California,50,Scott Peters,D,95
+House,California,51,Sara Jacobs,D,100
+House,California,52,Juan Vargas,D,100
+House,Colorado,1,Diana DeGette,D,100
+House,Colorado,2,Joe Neguse,D,100
+House,Colorado,3,Lauren Boebert,R,0
+House,Colorado,4,Greg Lopez,R,N/A
+House,Colorado,5,Doug Lamborn,R,0
+House,Colorado,6,Jason Crow,D,95
+House,Colorado,7,Brittany Pettersen,D,100
+House,Colorado,8,Yadira Caraveo,D,95
+House,Connecticut,1,John Larson,D,100
+House,Connecticut,2,Joe Courtney,D,95
+House,Connecticut,3,Rosa DeLauro,D,95
+House,Connecticut,4,Jim Himes,D,95
+House,Connecticut,5,Jahana Hayes,D,95
+House,Delaware,AL,Lisa Blunt Rochester,D,100
+House,District Of Columbia,AL,Eleanor Holmes Norton,D,100
+House,Florida,1,Matt Gaetz,R,7
+House,Florida,2,Neal Dunn,R,8
+House,Florida,3,Kat Cammack,R,3
+House,Florida,4,Aaron Bean,R,0
+House,Florida,5,John Rutherford,R,8
+House,Florida,6,Michael Waltz,R,6
+House,Florida,7,Cory Mills,R,3
+House,Florida,8,Bill Posey,R,0
+House,Florida,9,Darren Soto,D,95
+House,Florida,10,Maxwell Frost,D,100
+House,Florida,11,Daniel Webster,R,0
+House,Florida,12,Gus Bilirakis,R,0
+House,Florida,13,Anna Paulina Luna,R,0
+House,Florida,14,Kathy Castor,D,95
+House,Florida,15,Laurel Lee,R,9
+House,Florida,16,Vern Buchanan,R,8
+House,Florida,17,Greg Steube,R,5
+House,Florida,18,C. Scott Franklin,R,0
+House,Florida,19,Byron Donalds,R,3
+House,Florida,20,Sheila Cherfilus-McCormick,D,95
+House,Florida,21,Brian Mast,R,3
+House,Florida,22,Lois Frankel,D,95
+House,Florida,23,Jared Moskowitz,D,94
+House,Florida,24,Frederica Wilson,D,95
+House,Florida,25,Debbie Wasserman Schultz,D,100
+House,Florida,26,Mario Diaz-Balart,R,11
+House,Florida,27,Maria Elvira Salazar,R,8
+House,Florida,28,Carlos Gimenez,R,11
+House,Georgia,1,Buddy Carter,R,3
+House,Georgia,2,Sanford Bishop Jr.,D,93
+House,Georgia,3,Drew Ferguson,R,3
+House,Georgia,4,Henry “Hank” Johnson Jr.,D,100
+House,Georgia,5,Nikema Williams,D,100
+House,Georgia,6,Rich McCormick,R,0
+House,Georgia,7,Lucy McBath,D,95
+House,Georgia,8,Austin Scott,R,3
+House,Georgia,9,Andrew Clyde,R,2
+House,Georgia,10,Mike Collins,R,0
+House,Georgia,11,Barry Loudermilk,R,0
+House,Georgia,12,Rick Allen,R,0
+House,Georgia,13,David Scott,D,100
+House,Georgia,14,Marjorie Taylor Greene,R,13
+House,Guam,AL,James Moylan,R,10
+House,Hawaii,1,Ed Case,D,95
+House,Hawaii,2,Jill Tokuda,D,100
+House,Idaho,1,Russ Fulcher,R,0
+House,Idaho,2,Mike Simpson,R,11
+House,Illinois,1,Jonathan Jackson,D,94
+House,Illinois,2,Robin Kelly,D,100
+House,Illinois,3,Delia Ramirez,D,100
+House,Illinois,4,"Jesús ""Chuy"" García",D,100
+House,Illinois,5,Mike Quigley,D,100
+House,Illinois,6,Sean Casten,D,100
+House,Illinois,7,Danny Davis,D,100
+House,Illinois,8,Raja Krishnamoorthi,D,100
+House,Illinois,9,Jan Schakowsky,D,100
+House,Illinois,10,Brad Schneider,D,100
+House,Illinois,11,Bill Foster,D,100
+House,Illinois,12,Mike Bost,R,0
+House,Illinois,13,Nikki Budzinski,D,95
+House,Illinois,14,Lauren Underwood,D,100
+House,Illinois,15,Mary Miller,R,0
+House,Illinois,16,Darin LaHood,R,0
+House,Illinois,17,Eric Sorensen,D,100
+House,Indiana,1,Frank Mrvan,D,95
+House,Indiana,2,Rudy Yakym,R,0
+House,Indiana,3,Jim Banks,R,3
+House,Indiana,4,Jim Baird,R,6
+House,Indiana,5,Victoria Spartz,R,0
+House,Indiana,6,Greg Pence,R,6
+House,Indiana,7,André Carson,D,100
+House,Indiana,8,Larry Bucshon,R,8
+House,Indiana,9,Erin Houchin,R,0
+House,Iowa,1,Mariannette Miller-Meeks,R,8
+House,Iowa,2,Ashley Hinson,R,8
+House,Iowa,3,Zach Nunn,R,14
+House,Iowa,4,Randy Feenstra,R,6
+House,Kansas,1,Tracey Mann,R,3
+House,Kansas,2,Jake LaTurner,R,6
+House,Kansas,3,Sharice Davids,D,100
+House,Kansas,4,Ron Estes,R,0
+House,Kentucky,1,James Comer,R,0
+House,Kentucky,2,Brett Guthrie,R,6
+House,Kentucky,3,Morgan McGarvey,D,100
+House,Kentucky,4,Thomas Massie,R,15
+House,Kentucky,5,Harold Rogers,R,6
+House,Kentucky,6,Andy Barr,R,3
+House,Louisiana,1,Steve Scalise,R,0
+House,Louisiana,2,Troy Carter,D,100
+House,Louisiana,3,Clay Higgins,R,0
+House,Louisiana,4,Mike Johnson,R,0
+House,Louisiana,5,Julia Letlow,R,8
+House,Louisiana,6,Garret Graves,R,3
+House,Maine,1,Chellie Pingree,D,100
+House,Maine,2,Jared Golden,D,72
+House,Maryland,1,Andy Harris,R,2
+House,Maryland,2,Dutch Ruppersberger,D,95
+House,Maryland,3,John Sarbanes,D,100
+House,Maryland,4,Glenn Ivey,D,95
+House,Maryland,5,Steny Hoyer,D,95
+House,Maryland,6,David Trone,D,95
+House,Maryland,7,Kweisi Mfume,D,95
+House,Maryland,8,Jamie Raskin,D,100
+House,Massachusetts,1,Richard Neal,D,100
+House,Massachusetts,2,James McGovern,D,100
+House,Massachusetts,3,Lori Trahan,D,100
+House,Massachusetts,4,Jake Auchincloss,D,98
+House,Massachusetts,5,Katherine Clark,D,100
+House,Massachusetts,6,Seth Moulton,D,100
+House,Massachusetts,7,Ayanna Pressley,D,100
+House,Massachusetts,8,Stephen Lynch,D,100
+House,Massachusetts,9,Bill Keating,D,100
+House,Michigan,1,Jack Bergman,R,0
+House,Michigan,2,John Moolenaar,R,6
+House,Michigan,3,Hillary Scholten,D,93
+House,Michigan,4,Bill Huizenga,R,3
+House,Michigan,5,Tim Walberg,R,3
+House,Michigan,6,Debbie Dingell,D,100
+House,Michigan,7,Elissa Slotkin,D,92
+House,Michigan,8,Dan Kildee,D,100
+House,Michigan,9,Lisa McClain,R,0
+House,Michigan,10,John James,R,11
+House,Michigan,11,Haley Stevens,D,100
+House,Michigan,12,Rashida Tlaib,D,100
+House,Michigan,13,Shri Thanedar,D,95
+House,Minnesota,1,Brad Finstad,R,0
+House,Minnesota,2,Angie Craig,D,100
+House,Minnesota,3,Dean Phillips,D,94
+House,Minnesota,4,Betty McCollum,D,100
+House,Minnesota,5,Ilhan Omar,D,100
+House,Minnesota,6,Tom Emmer,R,6
+House,Minnesota,7,Michelle Fischbach,R,0
+House,Minnesota,8,Pete Stauber,R,3
+House,Mississippi,1,Trent Kelly,R,0
+House,Mississippi,2,Bennie Thompson,D,89
+House,Mississippi,3,Michael Guest,R,0
+House,Mississippi,4,Mike Ezell,R,0
+House,Missouri,1,Cori Bush,D,97
+House,Missouri,2,Ann Wagner,R,11
+House,Missouri,3,Blaine Luetkemeyer,R,6
+House,Missouri,4,Mark Alford,R,0
+House,Missouri,5,Emanuel Cleaver,D,100
+House,Missouri,6,Sam Graves,R,0
+House,Missouri,7,Eric Burlison,R,5
+House,Missouri,8,Jason Smith,R,0
+House,Montana,1,Ryan Zinke,R,6
+House,Montana,2,Matthew Rosendale,R,16
+House,Nebraska,1,Mike Flood,R,11
+House,Nebraska,2,Don Bacon,R,14
+House,Nebraska,3,Adrian Smith,R,6
+House,Nevada,1,Dina Titus,D,100
+House,Nevada,2,Mark Amodei,R,6
+House,Nevada,3,Susie Lee,D,94
+House,Nevada,4,Steven Horsford,D,95
+House,New Hampshire,1,Chris Pappas,D,95
+House,New Hampshire,2,Ann McLane Kuster,D,100
+House,New Jersey,1,Donald Norcross,D,100
+House,New Jersey,2,Jeff Van Drew,R,3
+House,New Jersey,3,Andy Kim,D,100
+House,New Jersey,4,Chris Smith,R,3
+House,New Jersey,5,Josh Gottheimer,D,95
+House,New Jersey,6,Frank Pallone Jr.,D,98
+House,New Jersey,7,Tom Kean Jr.,R,14
+House,New Jersey,8,Rob Menendez Jr.,D,100
+House,New Jersey,10,LaMonica McIver,D,N/A
+House,New Jersey,11,Mikie Sherrill,D,95
+House,New Jersey,12,Bonnie Watson Coleman,D,100
+House,New Mexico,1,Melanie Stansbury,D,100
+House,New Mexico,2,Gabe Vasquez,D,93
+House,New Mexico,3,Teresa Leger Fernández,D,100
+House,New York,1,Nick LaLota,R,14
+House,New York,2,Andrew Garbarino,R,14
+House,New York,3,Thomas Suozzi,D,N/A
+House,New York,4,Anthony D'Esposito,R,15
+House,New York,5,Gregory Meeks,D,95
+House,New York,6,Grace Meng,D,100
+House,New York,7,Nydia Velázquez,D,100
+House,New York,8,Hakeem Jeffries,D,94
+House,New York,9,Yvette Clarke,D,96
+House,New York,10,Daniel Goldman,D,100
+House,New York,11,Nicole Malliotakis,R,6
+House,New York,12,Jerrold Nadler,D,100
+House,New York,13,Adriano Espaillat,D,100
+House,New York,14,Alexandria Ocasio-Cortez,D,100
+House,New York,15,Ritchie Torres,D,100
+House,New York,16,Jamaal Bowman,D,100
+House,New York,17,Mike Lawler,R,30
+House,New York,18,Pat Ryan,D,95
+House,New York,19,Marc Molinaro,R,21
+House,New York,20,Paul Tonko,D,100
+House,New York,21,Elise Stefanik,R,6
+House,New York,22,Brandon Williams,R,13
+House,New York,23,Nick Langworthy,R,8
+House,New York,24,Claudia Tenney,R,3
+House,New York,25,Joseph Morelle,D,95
+House,New York,26,Timothy Kennedy,D,N/A
+House,North Carolina,1,Don Davis,D,68
+House,North Carolina,2,Deborah Ross,D,100
+House,North Carolina,3,Greg Murphy,R,3
+House,North Carolina,4,Valerie Foushee,D,100
+House,North Carolina,5,Virginia Foxx,R,0
+House,North Carolina,6,Kathy Manning,D,95
+House,North Carolina,7,David Rouzer,R,3
+House,North Carolina,8,Dan Bishop,R,0
+House,North Carolina,9,Richard Hudson,R,6
+House,North Carolina,10,Patrick McHenry,R,3
+House,North Carolina,11,Chuck Edwards,R,11
+House,North Carolina,12,Alma Adams,D,100
+House,North Carolina,13,Wiley Nickel,D,94
+House,North Carolina,14,Jeff Jackson,D,95
+House,North Dakota,AL,Kelly Armstrong,R,8
+House,Northern Mariana Islands,AL,Gregorio Sablan,D,100
+House,Ohio,1,Greg Landsman,D,95
+House,Ohio,2,Brad Wenstrup,R,6
+House,Ohio,3,Joyce Beatty,D,100
+House,Ohio,4,Jim Jordan,R,0
+House,Ohio,5,Robert Latta,R,3
+House,Ohio,6,Michael Rulli,R,N/A
+House,Ohio,7,Max Miller,R,6
+House,Ohio,8,Warren Davidson,R,0
+House,Ohio,9,Marcy Kaptur,D,95
+House,Ohio,10,Michael Turner,R,11
+House,Ohio,11,Shontel Brown,D,100
+House,Ohio,12,Troy Balderson,R,0
+House,Ohio,13,Emilia Sykes,D,95
+House,Ohio,14,David Joyce,R,14
+House,Ohio,15,Mike Carey,R,6
+House,Oklahoma,1,Kevin Hern,R,0
+House,Oklahoma,2,Josh Brecheen,R,0
+House,Oklahoma,3,Frank Lucas,R,11
+House,Oklahoma,4,Tom Cole,R,11
+House,Oklahoma,5,Stephanie Bice,R,3
+House,Oregon,1,Suzanne Bonamici,D,100
+House,Oregon,2,Cliff Bentz,R,6
+House,Oregon,3,Earl Blumenauer,D,100
+House,Oregon,4,Val Hoyle,D,96
+House,Oregon,5,Lori Chavez-DeRemer,R,17
+House,Oregon,6,Andrea Salinas,D,100
+House,Pennsylvania,1,Brian Fitzpatrick,R,31
+House,Pennsylvania,2,Brendan Boyle,D,100
+House,Pennsylvania,3,Dwight Evans,D,N/A
+House,Pennsylvania,4,Madeleine Dean,D,95
+House,Pennsylvania,5,Mary Gay Scanlon,D,100
+House,Pennsylvania,6,Chrissy Houlahan,D,91
+House,Pennsylvania,7,Susan Wild,D,95
+House,Pennsylvania,8,Matthew Cartwright,D,95
+House,Pennsylvania,9,Dan Meuser,R,6
+House,Pennsylvania,10,Scott Perry,R,7
+House,Pennsylvania,11,Lloyd Smucker,R,3
+House,Pennsylvania,12,Summer Lee,D,100
+House,Pennsylvania,13,John Joyce,R,3
+House,Pennsylvania,14,Guy Reschenthaler,R,0
+House,Pennsylvania,15,Glenn Thompson,R,6
+House,Pennsylvania,16,Mike Kelly,R,7
+House,Pennsylvania,17,Chris Deluzio,D,100
+House,Puerto Rico,AL,Jenniffer González-Colón,R,19
+House,Rhode Island,1,Gabe Amo,D,N/A
+House,Rhode Island,2,Seth Magaziner,D,95
+House,South Carolina,1,Nancy Mace,R,14
+House,South Carolina,2,Joe Wilson,R,0
+House,South Carolina,3,Jeff Duncan,R,0
+House,South Carolina,4,William Timmons,R,0
+House,South Carolina,5,Ralph Norman,R,9
+House,South Carolina,6,James Clyburn,D,95
+House,South Carolina,7,Russell Fry,R,3
+House,South Dakota,AL,Dusty Johnson,R,6
+House,Tennessee,1,Diana Harshbarger,R,0
+House,Tennessee,2,Tim Burchett,R,13
+House,Tennessee,3,Chuck Fleischmann,R,8
+House,Tennessee,4,Scott DesJarlais,R,0
+House,Tennessee,5,Andy Ogles,R,0
+House,Tennessee,6,John Rose,R,0
+House,Tennessee,7,Mark Green,R,3
+House,Tennessee,8,David Kustoff,R,3
+House,Tennessee,9,Steve Cohen,D,100
+House,Texas,1,Nathaniel Moran,R,6
+House,Texas,2,Dan Crenshaw,R,6
+House,Texas,3,Keith Self,R,7
+House,Texas,4,Pat Fallon,R,0
+House,Texas,5,Lance Gooden,R,0
+House,Texas,6,Jake Ellzey,R,6
+House,Texas,7,Lizzie Fletcher,D,100
+House,Texas,8,Morgan Luttrell,R,3
+House,Texas,9,Al Green,D,100
+House,Texas,10,Michael McCaul,R,3
+House,Texas,11,August Pfluger,R,0
+House,Texas,12,Kay Granger,R,6
+House,Texas,13,Ronny Jackson,R,0
+House,Texas,14,Randy Weber,R,0
+House,Texas,15,Monica De La Cruz,R,6
+House,Texas,16,Veronica Escobar,D,95
+House,Texas,17,Pete Sessions,R,0
+House,Texas,18,Erica Lee Carter,D,N/A
+House,Texas,19,Jodey Arrington,R,0
+House,Texas,20,Joaquin Castro,D,100
+House,Texas,21,Chip Roy,R,5
+House,Texas,22,Troy Nehls,R,3
+House,Texas,23,Tony Gonzales,R,12
+House,Texas,24,Beth Van Duyne,R,0
+House,Texas,25,Roger Williams,R,0
+House,Texas,26,Michael Burgess,R,3
+House,Texas,27,Michael Cloud,R,0
+House,Texas,28,Henry Cuellar,D,70
+House,Texas,29,Sylvia Garcia,D,100
+House,Texas,30,Jasmine Crockett,D,100
+House,Texas,31,John Carter,R,0
+House,Texas,32,Colin Allred,D,95
+House,Texas,33,Marc Veasey,D,100
+House,Texas,34,Vicente Gonzalez,D,73
+House,Texas,35,Greg Casar,D,100
+House,Texas,36,Brian Babin,R,0
+House,Texas,37,Lloyd Doggett,D,100
+House,Texas,38,Wesley Hunt,R,3
+House,Utah,1,Blake Moore,R,11
+House,Utah,2,Celeste Maloy,R,N/A
+House,Utah,3,John Curtis,R,8
+House,Utah,4,Burgess Owens,R,6
+House,Vermont,AL,Becca Balint,D,100
+House,Virgin Islands,AL,Stacey Plaskett,D,88
+House,Virginia,1,Robert Wittman,R,3
+House,Virginia,2,Jen Kiggans,R,9
+House,Virginia,3,Robert “Bobby” Scott,D,93
+House,Virginia,4,Jennifer McClellan,D,95
+House,Virginia,5,Bob Good,R,7
+House,Virginia,6,Ben Cline,R,0
+House,Virginia,7,Abigail Spanberger,D,100
+House,Virginia,8,Don Beyer,D,100
+House,Virginia,9,Morgan Griffith,R,5
+House,Virginia,10,Jennifer Wexton,D,100
+House,Virginia,11,Gerald “Gerry” Connolly,D,100
+House,Washington,1,Suzan DelBene,D,100
+House,Washington,2,Rick Larsen,D,95
+House,Washington,3,Marie Gluesenkamp Perez,D,73
+House,Washington,4,Dan Newhouse,R,12
+House,Washington,5,Cathy McMorris Rodgers,R,3
+House,Washington,6,Derek Kilmer,D,100
+House,Washington,7,Pramila Jayapal,D,100
+House,Washington,8,Kim Schrier,D,93
+House,Washington,9,Adam Smith,D,100
+House,Washington,10,Marilyn Strickland,D,95
+House,West Virginia,1,Carol Miller,R,3
+House,West Virginia,2,Alex Mooney,R,0
+House,Wisconsin,1,Bryan Steil,R,6
+House,Wisconsin,2,Mark Pocan,D,100
+House,Wisconsin,3,Derrick Van Orden,R,3
+House,Wisconsin,4,Gwen Moore,D,96
+House,Wisconsin,5,Scott Fitzgerald,R,0
+House,Wisconsin,6,Glenn Grothman,R,0
+House,Wisconsin,7,Tom Tiffany,R,0
+House,Wisconsin,8,Tony Wied,R,N/A
+House,Wyoming,AL,Harriet Hageman,R,0

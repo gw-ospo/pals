@@ -35,6 +35,20 @@ Python (managed with `uv`), Jupyter notebooks, Quarto, GitHub Pages.
 Project planning and change management use [OpenSpec](https://github.com/Fission-AI/OpenSpec)
 (`openspec/`; start a change with `/opsx:propose`).
 
+## Running the candidate combine step
+
+```bash
+uv sync
+uv run python -m pals.combine      # writes data/processed/*.csv
+uv run pytest
+```
+
+Outputs: `candidates_combined.csv` (one row per FEC candidate with committee totals and
+HRC score), `scorecard_match_report.csv` (status of every scorecard row),
+`committee_orphans.csv`, `match_summary.csv`. Fix mismatches by adding rows to
+`data/overrides/scorecard_overrides.csv`. The HRC score is for the 118th Congress
+(2023-24), so challengers and non-incumbents have no score.
+
 ## Status
 
 Early setup. Exploratory notebooks in the repo root predate the package layout.

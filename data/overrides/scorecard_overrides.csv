@@ -1,0 +1,7 @@
+scorecard_name,state,chamber,cand_id,note
+Nick LaLota,New York,House,H2NY01190,"FEC name is entered reversed (NICK, LALOTA)"
+Raja Krishnamoorthi,Illinois,House,S6IL00482,"FEC name is KRISHNAMOORTHI, S; running for Senate"
+Ashley Hinson,Iowa,House,S6IA00314,"FEC name is ARENHOLZ, ASHLEY HINSON; running for Senate"
+Buddy Carter,Georgia,House,S6GA00374,"FEC name is CARTER, EARL LEROY (Buddy); running for Senate"
+Jake Ellzey,Texas,House,H8TX06266,"FEC name is ELLZEY, JOHN KEVIN SR."
+Rob Menendez Jr.,New Jersey,House,H2NJ08232,"Same person has duplicate FEC ids H2NJ13075 and H2NJ08232; incumbent id chosen"
