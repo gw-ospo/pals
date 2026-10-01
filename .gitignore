@@ -13,11 +13,3 @@ data/processed/
 /site/_site/
 /site/.quarto/
 *_files/
-# Large/reproducible FEC downloads and source PDFs (hrc scorecard csv and overrides are tracked)
-data/*.pdf
-data/*.textClipping
-data/weball26.txt
-data/webk26.txt
-data/candidate_summary_2026.csv
-data/committee_summary_2026.csv
-data/big-AI-spending-2023-2026.csv
