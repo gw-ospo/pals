@@ -1,0 +1,20 @@
+/*-- scss:defaults --*/
+$primary: #780000;
+$link-color: #780000;
+$link-hover-color: #4a0000;
+$navbar-bg: #780000;
+$navbar-fg: #ffffff;
+$navbar-hl: #ffd9d4;
+$body-color: #222222;
+$headings-color: #780000;
+$font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+/*-- scss:rules --*/
+.navbar .navbar-brand, .navbar .nav-link { color: #ffffff; }
+.navbar .nav-link:hover, .navbar .nav-link.active { color: #ffd9d4; }
+.callout-note { border-left-color: #780000 !important; }
+.bindings, .vega-bindings { font-size: 0.95rem; }
+.vega-bindings label { margin-right: 1.25rem; }
+.vega-bindings select, .vega-bindings input { accent-color: #780000; }
+.nav-footer { color: #444444; font-size: 0.85rem; }
+.note-box { border-left: 4px solid #780000; padding: 0.5rem 1rem; background: #fbf1ef; }

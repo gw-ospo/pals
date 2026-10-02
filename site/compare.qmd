@@ -1,0 +1,57 @@
+---
+title: "Compare PACs"
+---
+
+Each bar is one corporate PAC. Segments show where its direct candidate contributions went, by the candidate's
+HRC score bin (118th Congress). Use *Share of PAC total* to compare PACs of different sizes.
+
+```{python}
+import sys; sys.path.insert(0, ".")
+import altair as alt
+from pals_site import BINS, CYCLE_LABELS, bin_color, load
+
+summary = load()["summary"].copy()
+summary["cycle_label"] = summary["cycle"].map(CYCLE_LABELS)
+summary["bin_order"] = summary["score_bin"].map({b: i for i, b in enumerate(BINS)})
+cycle_p = alt.param(name="cycle", value="All", bind=alt.binding_radio(
+    options=["All", "2024", "2026"], labels=["Both cycles", "2024", "2026"], name="Cycle: "))
+measure_p = alt.param(name="measure", value="Share of PAC total", bind=alt.binding_radio(
+    options=["Dollars", "Share of PAC total"], name="Show: "))
+axis_expr = "measure == 'Dollars' ? '$' + format(datum.value, ',.0f') : format(datum.value, '.0%')"
+
+chart = (
+    alt.Chart(summary)
+    .transform_filter("datum.cycle == cycle")
+    .transform_calculate(value="measure == 'Dollars' ? datum.dollars : datum.share")
+    .mark_bar()
+    .encode(
+        y=alt.Y("pac:N", title=None, sort=alt.SortField("pac")),
+        x=alt.X("value:Q", title="Direct contributions", stack="zero", axis=alt.Axis(labelExpr=axis_expr)),
+        color=bin_color(),
+        order=alt.Order("bin_order:Q"),
+        tooltip=[
+            alt.Tooltip("pac:N", title="PAC"),
+            alt.Tooltip("cycle_label:N", title="Cycle"),
+            alt.Tooltip("score_bin:N", title="HRC score bin"),
+            alt.Tooltip("dollars:Q", title="Dollars", format="$,.0f"),
+            alt.Tooltip("candidates:Q", title="Candidates"),
+            alt.Tooltip("share:Q", title="Share of PAC total", format=".1%"),
+        ],
+    )
+    .add_params(cycle_p, measure_p)
+    .properties(width="container", height=260)
+)
+chart
+```
+
+PACs with no direct candidate contributions in the selected period (such as Anthropic) show an empty row.
+
+## Share of each PAC's dollars, both cycles
+
+```{python}
+from IPython.display import HTML
+s = summary[summary["cycle"] == "All"]
+piv = s.pivot(index="score_bin", columns="pac", values="share").reindex(BINS)
+html = piv.map(lambda v: f"{v:.1%}").to_html(classes="table table-sm", border=0)
+HTML(f'<div class="table-responsive">{html}</div>')
+```

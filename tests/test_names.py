@@ -1,7 +1,7 @@
 import pytest
 
 from pals.jurisdiction import district_code, office_code, state_code
-from pals.names import parse_fec_name, parse_scorecard_name
+from pals.names import display_name, parse_fec_name, parse_scorecard_name
 
 
 def test_fec_name_reordered():
@@ -40,3 +40,11 @@ def test_jurisdiction():
     assert district_code("Statewide", "S") == ""
     with pytest.raises(ValueError):
         state_code("Atlantis")
+
+
+def test_display_name():
+    assert display_name("CORNYN, JOHN SEN. III") == "John Cornyn III"
+    assert display_name("MCBATH, LUCIA KAY MS.") == "Lucia Kay McBath"
+    assert display_name("CARTER, EARL L. B.") == "Earl L. B. Carter"
+    assert display_name("SALERNO-O'DONNELL, JORDAN JR.") == "Jordan Salerno-O'Donnell Jr."
+    assert display_name(None) == ""

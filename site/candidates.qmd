@@ -1,0 +1,57 @@
+---
+title: "Candidates behind each bin"
+---
+
+Choose a PAC and a score bin to see the candidates who received its direct contributions.
+Sort by clicking a column heading, or type in the search box.
+
+```{python}
+import sys; sys.path.insert(0, ".")
+import pandas as pd
+from pals.names import display_name
+from pals_site import BINS, load
+
+t = load()["totals"].copy()
+t["candidate"] = t["candidate_name"].map(display_name)
+t["party"] = t["party"].fillna("")
+keys = ["pac", "candidate_id", "candidate", "party", "state", "office", "score_bin", "match_method"]
+t["score"] = t["score"].astype(float)
+by_cycle = t.pivot_table(index=keys, columns="cycle", values="dollars", aggfunc="sum", fill_value=0).reset_index()
+by_cycle.columns = [str(c) for c in by_cycle.columns]
+scores = t.groupby("candidate_id", as_index=False)["score"].first()
+wide = by_cycle.merge(scores, on="candidate_id", how="left")
+for c in ("2024", "2026"):
+    if c not in wide:
+        wide[c] = 0.0
+wide["total"] = wide["2024"] + wide["2026"]
+import json
+records = json.loads(wide.round(2).to_json(orient="records"))  # to_json writes NaN as null
+ojs_define(rows=records, bins=BINS, pacs=sorted(t["pac"].unique().tolist() + ["Anthropic"]))
+```
+
+```{ojs}
+rowsData = rows
+viewof pacSel = Inputs.select([...new Set(pacs)], {label: "PAC", value: "Google"})
+viewof binSel = Inputs.select(["All bins", ...bins], {label: "HRC score bin", value: "All bins"})
+```
+
+```{ojs}
+filtered = rowsData.filter(d => d.pac === pacSel && (binSel === "All bins" || d.score_bin === binSel))
+viewof found = Inputs.search(filtered, {placeholder: "Search candidates"})
+```
+
+```{ojs}
+filtered.length === 0
+  ? html`<p class="note-box">No direct candidate contributions from ${pacSel} in this bin.</p>`
+  : Inputs.table(found, {
+      columns: ["candidate", "party", "state", "office", "score", "score_bin", "2024", "2026", "total"],
+      header: {candidate: "Candidate", party: "Party", state: "State", office: "Office", score: "HRC score",
+               score_bin: "Bin", "2024": "2024 cycle", "2026": "2026 cycle", total: "Total"},
+      format: {"2024": d => d3.format("$,.0f")(d), "2026": d => d3.format("$,.0f")(d),
+               total: d => d3.format("$,.0f")(d), score: d => d == null ? "n/a" : d},
+      sort: "total", reverse: true, rows: 25
+    })
+```
+
+Dollars are net of refunds and voided contributions. *HRC score* is the 118th Congress score of the matched
+scorecard entry; candidates with no match or no score are in *No score*.

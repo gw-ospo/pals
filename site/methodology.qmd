@@ -1,0 +1,70 @@
+---
+title: "Methodology and caveats"
+---
+
+```{python}
+import sys; sys.path.insert(0, ".")
+import pandas as pd
+from IPython.display import HTML, Markdown
+from pals_site import BINS, load
+
+d = load()
+spend = pd.read_csv("../data/big-AI-spending-2023-2026.csv", usecols=["disbursement_date"])
+dates = pd.to_datetime(spend["disbursement_date"])
+refresh = dates.max().strftime("%B %-d, %Y")
+first = dates.min().strftime("%B %-d, %Y")
+```
+
+**Data covers disbursements from `{python} first` through `{python} refresh`** (latest transaction in the source file).
+
+## Sources
+
+- **Corporate PAC disbursements:** FEC Schedule B data in `big-AI-spending-2023-2026.csv`
+  (Microsoft, Amazon, SpaceX, Google, Meta and Anthropic PACs).
+- **Scores:** the Human Rights Campaign 118th Congressional Scorecard (2023-24), transcribed in
+  `hrc_118th_congress_scorecard.csv`.
+
+## What is counted
+
+- **Direct contributions only.** A disbursement counts when its FEC type is `24K` (contribution to a
+  committee) and it names a candidate. `24K` contributions to leadership PACs, party committees and other PACs have
+  no candidate and are excluded here; they are indirect money, which this site does not yet trace.
+- **Amendments are collapsed.** If a transaction was filed more than once, only the latest filing is counted.
+- **Refunds and voids are netted.** A voided or refunded contribution reduces the candidate's total.
+- **Cycles.** 2024 and 2026 refer to the FEC two-year transaction period of the donation.
+
+## How candidates get a score
+
+Each recipient is matched to a scorecard entry by state, office and normalized name (handling nicknames such as
+Jim/James, compound surnames, and candidates who changed chambers). The same person under two FEC ids shares one score.
+Matches that are ambiguous are left unscored. Candidates are placed in one bin:
+
+| Bin | Rule |
+|---|---|
+| 0 | score is exactly 0 |
+| 1-24, 25-49, 50-74, 75-99 | score in that range |
+| 100 | score is exactly 100 |
+| No score | no scorecard match, or a scorecard entry without a score |
+
+## Caveats
+
+- **Score vintage.** Every score is from the 118th Congress (2023-24). A 2026-cycle donation is paired with a prior-term
+  score, and a candidate's current positions may differ.
+- **Many recipients have no score.** Challengers, newly elected members and others who were not in the 118th Congress
+  have no HRC score, so *No score* can be a large bin.
+- **Name matching is automated.** A small number of manual overrides fix unusual FEC names. Mismatches can move dollars between bins.
+- **Anthropic.** Its PAC appears in the data with no direct candidate contributions, so its displays are all zero.
+  The figures may change with more years of data or when indirect contributions are added.
+
+## Reconciliation
+
+For each PAC, direct plus excluded dollars equal all (deduplicated) `24K` dollars.
+
+```{python}
+r = d["recon"].rename(columns={"pac": "PAC", "direct_to_candidates": "Direct to candidates",
+                               "excluded_no_candidate": "Excluded (no candidate)",
+                               "total_24k_deduplicated": "Total 24K"})
+for c in r.columns[1:]:
+    r[c] = r[c].map(lambda v: f"${v:,.0f}")
+HTML(f'<div class="table-responsive">{r.to_html(index=False, classes="table table-sm", border=0)}</div>')
+```

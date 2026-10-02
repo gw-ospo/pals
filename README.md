@@ -49,6 +49,19 @@ HRC score), `scorecard_match_report.csv` (status of every scorecard row),
 `data/overrides/scorecard_overrides.csv`. The HRC score is for the 118th Congress
 (2023-24), so challengers and non-incumbents have no score.
 
+## Website (Quarto + GitHub Pages)
+
+```bash
+uv sync --group site
+uv run python -m pals.donations    # builds data/processed/pac_*.csv
+uv run quarto render site          # or: uv run quarto preview site
+```
+
+The site shows corporate PAC direct contributions by candidate HRC score bin. It is deployed by
+`.github/workflows/publish.yml` on every push to `main`. One-time setup: in the GitHub repo go to
+**Settings > Pages** and set **Source** to **GitHub Actions**. The site will be at
+https://gw-ospo.github.io/pals/.
+
 ## Status
 
 Early setup. Exploratory notebooks in the repo root predate the package layout.

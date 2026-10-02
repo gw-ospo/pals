@@ -11,6 +11,7 @@ dependencies = [
 
 [dependency-groups]
 dev = ["pytest>=8", "jupyter>=1.1", "ipykernel>=6.29"]
+site = ["altair>=5.4", "ipykernel>=6.29", "jupyter>=1.1", "pyyaml>=6"]
 
 [build-system]
 requires = ["hatchling"]

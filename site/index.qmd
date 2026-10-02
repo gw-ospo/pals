@@ -1,0 +1,77 @@
+---
+title: "Corporate PAC giving by candidate HRC score"
+---
+
+How much direct campaign money did each corporate PAC give to candidates, grouped by the
+candidate's [Human Rights Campaign](https://www.hrc.org/) Congressional Scorecard score? Pick a PAC below.
+
+::: {.note-box}
+**Direct contributions only.** These are contributions made straight to candidate committees.
+Money routed through leadership PACs or party committees is not included. Scores are the
+**118th Congress (2023-24)** record, applied to donations from both the 2024 and 2026 cycles.
+*No score* means the candidate has no HRC score (for example, challengers or new members).
+:::
+
+```{python}
+import sys; sys.path.insert(0, ".")
+import altair as alt
+import pandas as pd
+from pals_site import BINS, CYCLE_LABELS, bin_color, load
+
+data = load()
+summary = data["summary"].copy()
+summary["cycle_label"] = summary["cycle"].map(CYCLE_LABELS)
+pacs = sorted(summary["pac"].unique())
+alt.data_transformers.disable_max_rows()
+
+pac_p = alt.param(name="pac", value="Google", bind=alt.binding_select(options=pacs, name="PAC: "))
+cycle_p = alt.param(name="cycle", value="All", bind=alt.binding_radio(
+    options=["All", "2024", "2026"], labels=["Both cycles", "2024", "2026"], name="Cycle: "))
+measure_p = alt.param(name="measure", value="Dollars", bind=alt.binding_radio(
+    options=["Dollars", "Share of PAC total"], name="Show: "))
+
+# PAC/cycle combos with nothing to show (e.g. Anthropic) get an explicit message
+totals = summary.groupby(["pac", "cycle"], as_index=False)["dollars"].sum()
+empty = totals[totals["dollars"] == 0].assign(msg="No direct candidate contributions recorded for this PAC and period")
+
+axis_expr = ("measure == 'Dollars' ? '$' + format(datum.value, ',.0f') : format(datum.value, '.0%')")
+base = alt.Chart(summary).transform_filter("datum.pac == pac && datum.cycle == cycle")
+bars = (
+    base.transform_calculate(value="measure == 'Dollars' ? datum.dollars : datum.share")
+    .mark_bar()
+    .encode(
+        x=alt.X("score_bin:O", sort=BINS, title="Candidate HRC score (118th Congress)",
+                axis=alt.Axis(labelAngle=0)),
+        y=alt.Y("value:Q", title="Direct contributions", axis=alt.Axis(labelExpr=axis_expr)),
+        color=bin_color(legend=False),
+        tooltip=[
+            alt.Tooltip("pac:N", title="PAC"),
+            alt.Tooltip("cycle_label:N", title="Cycle"),
+            alt.Tooltip("score_bin:N", title="HRC score bin"),
+            alt.Tooltip("dollars:Q", title="Dollars", format="$,.0f"),
+            alt.Tooltip("candidates:Q", title="Candidates"),
+            alt.Tooltip("share:Q", title="Share of PAC total", format=".1%"),
+        ],
+    )
+)
+message = (
+    alt.Chart(empty).transform_filter("datum.pac == pac && datum.cycle == cycle")
+    .mark_text(fontSize=15, color="#780000", fontWeight="bold")
+    .encode(text="msg:N", x=alt.value(300), y=alt.value(110))
+)
+chart = (bars + message).add_params(pac_p, cycle_p, measure_p).properties(width="container", height=320)
+chart
+```
+
+## The numbers behind the chart
+
+Totals across both cycles, in dollars (net of refunds and voided contributions). Candidates are counted once per PAC.
+
+```{python}
+from IPython.display import HTML
+piv = (summary[summary["cycle"] == "All"]
+       .pivot(index="score_bin", columns="pac", values="dollars").reindex(BINS))
+piv.loc["Total"] = piv.sum()
+html = piv.map(lambda v: f"${v:,.0f}").to_html(classes="table table-sm", border=0)
+HTML(f'<div class="table-responsive">{html}</div>')
+```

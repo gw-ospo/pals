@@ -79,3 +79,36 @@ def parse_scorecard_name(raw: str | None) -> Name:
     variants = tuple("".join(toks[j:]) for j in range(1, len(toks)))
     return Name(last="".join(toks[i:]), first=toks[0], middle=tuple(toks[1:i]), suffix=suffix,
                 last_variants=variants)
+
+
+_DISPLAY_DROP = HONORIFICS | {"the"}
+
+
+def _title_token(tok: str) -> str:
+    if tok in SUFFIXES and tok in {"ii", "iii", "iv", "v"}:
+        return tok.upper()
+    if tok in SUFFIXES:
+        return tok.capitalize() + "."
+    word = tok.capitalize()
+    word = re.sub(r"^(Mc|Mac(?=[a-z]{4}))([a-z])", lambda m: m.group(1) + m.group(2).upper(), word)
+    return re.sub(r"([-'])([a-z])", lambda m: m.group(1) + m.group(2).upper(), word)
+
+
+def display_name(raw: str | None) -> str:
+    """`"CORNYN, JOHN SEN. III"` -> `"John Cornyn III"`; `"MCBATH, LUCIA KAY MS."` -> `"Lucia Kay McBath"`."""
+    if not isinstance(raw, str) or not raw.strip():
+        return ""
+    last, _, rest = raw.partition(",")
+    suffix, words = "", []
+    for tok in rest.split() + last.split():
+        bare = re.sub(r"[^a-z]", "", tok.lower())
+        if bare in _DISPLAY_DROP:
+            continue
+        if bare in SUFFIXES:
+            suffix = bare
+        elif len(bare) == 1:
+            words.append(bare.upper() + ".")
+        else:
+            words.append(_title_token(tok.lower().rstrip(".")))
+    name = " ".join(words)
+    return f"{name} {_title_token(suffix)}" if suffix else name

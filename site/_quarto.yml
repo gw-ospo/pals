@@ -1,0 +1,35 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "PALS"
+  description: "PAC Analysis of Legislative Scorecards: corporate PAC contributions by candidate HRC score"
+  navbar:
+    background: primary
+    left:
+      - href: index.qmd
+        text: Explore
+      - href: compare.qmd
+        text: Compare PACs
+      - href: candidates.qmd
+        text: Candidates
+      - href: methodology.qmd
+        text: Methodology
+    right:
+      - icon: github
+        href: https://github.com/gw-ospo/pals
+        aria-label: PALS on GitHub
+  page-footer: "PALS: PAC Analysis of Legislative Scorecards. Direct contributions only; HRC scores are the 118th Congress (2023-24) record."
+
+format:
+  html:
+    theme: [cosmo, theme.scss]
+    toc: false
+    code-tools: false
+    lang: en
+
+execute:
+  echo: false
+  warning: false
+jupyter: python3
