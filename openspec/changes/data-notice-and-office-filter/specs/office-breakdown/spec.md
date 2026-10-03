@@ -33,9 +33,17 @@ Explore, Compare PACs and Candidates SHALL provide an Office filter with options
 - **WHEN** the selected PAC, cycle and office have no contributions (for example Anthropic)
 - **THEN** a message states that none are recorded and the bins show zero
 
-### Requirement: By-office view
-The Explore page SHALL include a chart of the selected PAC's direct dollars and candidate counts by office, broken down by score bin.
+### Requirement: Office stacked within score-bin bars
+The Explore chart SHALL stack House and Senate segments within each HRC score-bin bar (House at the bottom), with a legend for office, so no separate by-office chart is needed. A total (dollars and candidates) SHALL be labelled above each stack, and the Office filter SHALL narrow the stack to one office.
 
-#### Scenario: Compare chambers
-- **WHEN** a viewer selects a PAC
-- **THEN** the chart shows House and Senate bars with dollars and candidate counts
+#### Scenario: Stacked bars
+- **WHEN** a viewer selects a PAC with Office set to All
+- **THEN** each bin's bar shows a House segment and a Senate segment that add up to the labelled dollar total
+
+#### Scenario: Share measure
+- **WHEN** the Share of PAC total measure is selected
+- **THEN** segments are shares of the PAC's total across both offices, so the stacks across all bins add up to 100%
+
+#### Scenario: Single office
+- **WHEN** a viewer selects Senate
+- **THEN** only Senate segments are drawn and the label above each bar shows Senate dollars and candidates

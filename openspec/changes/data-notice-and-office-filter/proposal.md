@@ -14,8 +14,8 @@ House and Senate giving.
   curated by Claude and has not been validated.
 - Add the number of candidates to the Explore chart (labels on bars, a "Candidates" measure, and a
   table with dollars and candidate counts side by side).
-- Add an Office filter (All, House, Senate) to Explore, Compare PACs and Candidates,
-  plus a by-office chart on Explore.
+- Add an Office filter (All, House, Senate) to Explore, Compare PACs and Candidates, and stack House and
+  Senate segments within the Explore bars.
 - Extend the data step so summaries are produced per office. Presidential candidates are out of scope and are not
   shown anywhere.
 

@@ -13,7 +13,7 @@
 ## 3. Office breakdown and counts
 
 - [x] 3.1 Explore: candidate count labels on bars, "Candidates" measure, values table with dollars and candidates
-- [x] 3.2 Explore: Office filter and by-office chart
+- [x] 3.2 Explore: Office filter and House/Senate stacked within the bars
 - [x] 3.3 Compare PACs: Office filter
 - [x] 3.4 Candidates: Office filter and office column
 - [x] 3.5 Update methodology (office definition)

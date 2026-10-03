@@ -6,7 +6,8 @@ title: "Corporate PAC giving by candidate HRC score"
 
 How much direct campaign money did each corporate PAC give to candidates, grouped by the
 candidate's [Human Rights Campaign](https://www.hrc.org/) Congressional Scorecard score? Pick a PAC, cycle
-and office below. Labels on the bars show dollars and the number of candidates.
+and office below. Each bar is stacked by House and Senate, and the label above it shows dollars and the number
+of candidates.
 
 ::: {.note-box}
 **Direct contributions only.** These are contributions made straight to candidate committees.
@@ -19,14 +20,24 @@ Money routed through leadership PACs or party committees is not included. Scores
 import sys; sys.path.insert(0, ".")
 import altair as alt
 import pandas as pd
-from pals_site import BINS, CYCLE_LABELS, NOTICE, OFFICE_OPTIONS, bin_color, load
+from pals_site import BINS, CYCLE_LABELS, NOTICE, OFFICE_OPTIONS, load
 
 data = load()
 summary = data["summary"].copy()
 summary["cycle_label"] = summary["cycle"].map(CYCLE_LABELS)
-summary["bin_order"] = summary["score_bin"].map({b: i for i, b in enumerate(BINS)})
+summary["score_bin"] = summary["score_bin"].astype(str)
 pacs = sorted(summary["pac"].unique())
 alt.data_transformers.disable_max_rows()
+
+# Share is always relative to the PAC's total across both offices, so stacked segments add up.
+all_tot = (summary[summary["office"] == "All"].groupby(["pac", "cycle"])["dollars"].sum()
+           .rename("pac_total").reset_index())
+summary = summary.merge(all_tot, on=["pac", "cycle"])
+summary["share_total"] = (summary["dollars"] / summary["pac_total"].where(summary["pac_total"] != 0)).fillna(0.0)
+# Height of the stack for the "Candidates" measure (House + Senate; a person who ran for both counts in each)
+stack_c = (summary[summary["office"] != "All"].groupby(["pac", "cycle", "score_bin"])["candidates"].sum()
+           .rename("stack_candidates").reset_index())
+summary = summary.merge(stack_c, on=["pac", "cycle", "score_bin"])
 
 pac_p = alt.param(name="pac", value="Google", bind=alt.binding_select(options=pacs, name="PAC: "))
 cycle_p = alt.param(name="cycle", value="All", bind=alt.binding_radio(
@@ -37,14 +48,20 @@ measure_p = alt.param(name="measure", value="Dollars", bind=alt.binding_radio(
     options=["Dollars", "Share of PAC total", "Candidates"], name="Show: "))
 
 # PAC/cycle/office combos with nothing to show (e.g. Anthropic) get an explicit message
-totals = summary.groupby(["pac", "cycle", "office"], as_index=False, observed=True)["dollars"].sum()
+totals = summary.groupby(["pac", "cycle", "office"], as_index=False)["dollars"].sum()
 empty = totals[totals["dollars"] == 0].assign(
     msg="No direct candidate contributions recorded for this PAC, period and office")
 
-VALUE = ("measure == 'Dollars' ? datum.dollars : measure == 'Share of PAC total' ? datum.share : datum.candidates")
+VALUE = ("measure == 'Dollars' ? datum.dollars : measure == 'Share of PAC total' ? datum.share_total : "
+         "datum.candidates")
+TOP = ("measure == 'Dollars' ? datum.dollars : measure == 'Share of PAC total' ? datum.share_total : "
+       "datum.stack_candidates")
 AXIS = ("measure == 'Dollars' ? '$' + format(datum.value, ',.0f') : measure == 'Candidates' ? "
         "format(datum.value, ',d') : format(datum.value, '.0%')")
-FILTER = "datum.pac == pac && datum.cycle == cycle && datum.office == office"
+# Bars stack House and Senate; the Office filter narrows to one of them
+SEGMENTS = ("datum.pac == pac && datum.cycle == cycle && "
+            "(office == 'All' ? datum.office != 'All' : datum.office == office)")
+TOTALS = "datum.pac == pac && datum.cycle == cycle && datum.office == office"
 TOOLTIP = [
     alt.Tooltip("pac:N", title="PAC"),
     alt.Tooltip("cycle_label:N", title="Cycle"),
@@ -52,19 +69,31 @@ TOOLTIP = [
     alt.Tooltip("score_bin:N", title="HRC score bin"),
     alt.Tooltip("dollars:Q", title="Dollars", format="$,.0f"),
     alt.Tooltip("candidates:Q", title="Candidates"),
-    alt.Tooltip("share:Q", title="Share of PAC total", format=".1%"),
+    alt.Tooltip("share_total:Q", title="Share of PAC total", format=".1%"),
 ]
 
-base = alt.Chart(summary).transform_filter(FILTER).transform_calculate(value=VALUE)
+summary["office_order"] = summary["office"].map({"House": 0, "Senate": 1, "All": 2})
 x_bin = alt.X("score_bin:O", sort=BINS, title="Candidate HRC score (118th Congress)", axis=alt.Axis(labelAngle=0))
-bars = base.mark_bar().encode(
-    x=x_bin,
-    y=alt.Y("value:Q", title="Direct contributions", axis=alt.Axis(labelExpr=AXIS)),
-    color=bin_color(legend=False),
-    tooltip=TOOLTIP,
+office_color = alt.Color(
+    "office:N",
+    scale=alt.Scale(domain=["House", "Senate"], range=["#780000", "#e3a89f"]),
+    legend=alt.Legend(title="Office", orient="bottom"),
 )
+bars = (
+    alt.Chart(summary).transform_filter(SEGMENTS).transform_calculate(value=VALUE)
+    .mark_bar().encode(
+        x=x_bin,
+        y=alt.Y("value:Q", title="Direct contributions", stack="zero", axis=alt.Axis(labelExpr=AXIS)),
+        color=office_color,
+        order=alt.Order("office_order:Q"),
+        tooltip=TOOLTIP,
+    )
+)
+# Totals above each stack: dollars and candidates for the selected office filter
 labels = (
-    base.transform_calculate(
+    alt.Chart(summary).transform_filter(TOTALS)
+    .transform_calculate(
+        value=TOP,
         l1="datum.dollars == 0 && datum.candidates == 0 ? '' : '$' + format(datum.dollars, '.3~s')",
         l2="datum.candidates == 0 ? '' : datum.candidates + (datum.candidates == 1 ? ' cand.' : ' cands.')",
     )
@@ -73,50 +102,16 @@ labels = (
 )
 labels2 = labels.mark_text(baseline="bottom", dy=-4, fontSize=11, color="#780000", fontWeight="bold").encode(text="l2:N")
 message = (
-    alt.Chart(empty).transform_filter(FILTER)
+    alt.Chart(empty).transform_filter(TOTALS)
     .mark_text(fontSize=15, color="#780000", fontWeight="bold")
     .encode(text="msg:N", x=alt.value(300), y=alt.value(110))
 )
-title = alt.TitleParams("Direct contributions by candidate HRC score bin", subtitle=NOTICE,
+title = alt.TitleParams("Direct contributions by candidate HRC score bin, stacked by office", subtitle=NOTICE,
                         subtitleColor="#444", fontSize=15, anchor="start")
-main = (bars + labels + labels2 + message).properties(width="container", height=320, title=title)
-
-# Same PAC/cycle, split by office
-by_office = summary[summary["office"] != "All"]
-off_base = (alt.Chart(by_office)
-            .transform_filter("datum.pac == pac && datum.cycle == cycle")
-            .transform_calculate(value=VALUE))
-off_bars = off_base.mark_bar().encode(
-    x=alt.X("office:O", sort=["House", "Senate"], title="Office", axis=alt.Axis(labelAngle=0)),
-    y=alt.Y("value:Q", title="Direct contributions", stack="zero", axis=alt.Axis(labelExpr=AXIS)),
-    color=bin_color(),
-    order=alt.Order("bin_order:Q"),
-    tooltip=TOOLTIP,
-)
-off_tot = (by_office.groupby(["pac", "cycle", "office"], as_index=False, observed=True)
-           .agg(dollars=("dollars", "sum"), candidates=("candidates", "sum")))
-off_tot["share"] = (off_tot["dollars"] != 0).astype(float)
-off_text = (
-    alt.Chart(off_tot).transform_filter("datum.pac == pac && datum.cycle == cycle")
-    .transform_calculate(
-        value=VALUE,
-        label="'$' + format(datum.dollars, '.3~s') + ' · ' + datum.candidates + ' cand.'")
-    .mark_text(baseline="bottom", dy=-4, fontSize=11, color="#222")
-    .encode(x=alt.X("office:O", sort=["House", "Senate"]), y="value:Q", text="label:N")
-)
-off_title = alt.TitleParams("Same PAC by office (House, Senate)", subtitle=NOTICE,
-                            subtitleColor="#444", fontSize=15, anchor="start")
-by_off_chart = (off_bars + off_text).properties(width="container", height=260, title=off_title)
-
-chart = (alt.vconcat(main, by_off_chart, spacing=30)
+chart = (alt.layer(bars, labels, labels2, message)
          .add_params(pac_p, cycle_p, office_p, measure_p)
-         .resolve_scale(color="independent"))
-
-# Vega-Lite only sizes a single view to its container; for a stacked pair, set it on the top-level spec.
-from IPython.display import display
-spec = chart.to_dict()
-spec.update(width="container", autosize={"type": "fit-x", "contains": "padding"})
-display(alt.renderers.get()(spec), raw=True)
+         .properties(width="container", height=340, title=title))
+chart
 ```
 
 ## The numbers behind the chart
