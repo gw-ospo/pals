@@ -6,6 +6,11 @@ aligns each candidate with legislative scorecard ratings (e.g. HRC on LGBTQ+
 equality, NRA on gun rights) to show how corporate political money lines up
 with legislative behavior.
 
+> **Data status: open data curated by Claude; not validated.** The datasets, name matching and aggregations in this
+> project are open and were assembled by Claude (an AI assistant). They have not been independently validated
+> against the FEC or HRC sources. Verify any figure before relying on it. The same notice appears on every page and
+> chart of the website.
+
 ## The core problem
 
 Corporate PAC money rarely goes only directly to candidates. Much of it passes
@@ -57,7 +62,7 @@ uv run python -m pals.donations    # builds data/processed/pac_*.csv
 uv run quarto render site          # or: uv run quarto preview site
 ```
 
-The site shows corporate PAC direct contributions by candidate HRC score bin. It is deployed by
+The site shows corporate PAC direct contributions by candidate HRC score bin, with dollars and candidate counts, and filters for cycle and office (House, Senate). It is deployed by
 `.github/workflows/publish.yml` on every push to `main`. One-time setup: in the GitHub repo go to
 **Settings > Pages** and set **Source** to **GitHub Actions**. The site will be at
 https://gw-ospo.github.io/pals/.

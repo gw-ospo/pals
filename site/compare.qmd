@@ -2,27 +2,32 @@
 title: "Compare PACs"
 ---
 
+{{< include _notice.qmd >}}
+
 Each bar is one corporate PAC. Segments show where its direct candidate contributions went, by the candidate's
 HRC score bin (118th Congress). Use *Share of PAC total* to compare PACs of different sizes.
 
 ```{python}
 import sys; sys.path.insert(0, ".")
 import altair as alt
-from pals_site import BINS, CYCLE_LABELS, bin_color, load
+from pals_site import BINS, CYCLE_LABELS, NOTICE, OFFICE_OPTIONS, bin_color, load
 
 summary = load()["summary"].copy()
 summary["cycle_label"] = summary["cycle"].map(CYCLE_LABELS)
 summary["bin_order"] = summary["score_bin"].map({b: i for i, b in enumerate(BINS)})
 cycle_p = alt.param(name="cycle", value="All", bind=alt.binding_radio(
     options=["All", "2024", "2026"], labels=["Both cycles", "2024", "2026"], name="Cycle: "))
+office_p = alt.param(name="office", value="All", bind=alt.binding_radio(
+    options=OFFICE_OPTIONS, labels=["All", "House", "Senate"], name="Office: "))
 measure_p = alt.param(name="measure", value="Share of PAC total", bind=alt.binding_radio(
-    options=["Dollars", "Share of PAC total"], name="Show: "))
-axis_expr = "measure == 'Dollars' ? '$' + format(datum.value, ',.0f') : format(datum.value, '.0%')"
+    options=["Dollars", "Share of PAC total", "Candidates"], name="Show: "))
+axis_expr = ("measure == 'Dollars' ? '$' + format(datum.value, ',.0f') : measure == 'Candidates' ? "
+             "format(datum.value, ',d') : format(datum.value, '.0%')")
 
 chart = (
     alt.Chart(summary)
-    .transform_filter("datum.cycle == cycle")
-    .transform_calculate(value="measure == 'Dollars' ? datum.dollars : datum.share")
+    .transform_filter("datum.cycle == cycle && datum.office == office")
+    .transform_calculate(value="measure == 'Dollars' ? datum.dollars : measure == 'Share of PAC total' ? datum.share : datum.candidates")
     .mark_bar()
     .encode(
         y=alt.Y("pac:N", title=None, sort=alt.SortField("pac")),
@@ -32,26 +37,29 @@ chart = (
         tooltip=[
             alt.Tooltip("pac:N", title="PAC"),
             alt.Tooltip("cycle_label:N", title="Cycle"),
+            alt.Tooltip("office:N", title="Office"),
             alt.Tooltip("score_bin:N", title="HRC score bin"),
             alt.Tooltip("dollars:Q", title="Dollars", format="$,.0f"),
             alt.Tooltip("candidates:Q", title="Candidates"),
             alt.Tooltip("share:Q", title="Share of PAC total", format=".1%"),
         ],
     )
-    .add_params(cycle_p, measure_p)
-    .properties(width="container", height=260)
+    .add_params(cycle_p, office_p, measure_p)
+    .properties(width="container", height=260,
+                title=alt.TitleParams("Direct contributions by PAC and HRC score bin", subtitle=NOTICE,
+                                      subtitleColor="#444", fontSize=15, anchor="start"))
 )
 chart
 ```
 
-PACs with no direct candidate contributions in the selected period (such as Anthropic) show an empty row.
+PACs with no direct candidate contributions for the selected cycle and office (such as Anthropic) show an empty row. *Candidates* counts distinct people per PAC.
 
 ## Share of each PAC's dollars, both cycles
 
 ```{python}
 from IPython.display import HTML
-s = summary[summary["cycle"] == "All"]
+s = summary[(summary["cycle"] == "All") & (summary["office"] == "All")]
 piv = s.pivot(index="score_bin", columns="pac", values="share").reindex(BINS)
 html = piv.map(lambda v: f"{v:.1%}").to_html(classes="table table-sm", border=0)
-HTML(f'<div class="table-responsive">{html}</div>')
+HTML(f'<div class="table-responsive">{html}</div><p><small>{NOTICE}</small></p>')
 ```

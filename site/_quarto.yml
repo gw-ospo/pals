@@ -20,7 +20,7 @@ website:
       - icon: github
         href: https://github.com/gw-ospo/pals
         aria-label: PALS on GitHub
-  page-footer: "PALS: PAC Analysis of Legislative Scorecards. Direct contributions only; HRC scores are the 118th Congress (2023-24) record."
+  page-footer: "PALS: PAC Analysis of Legislative Scorecards. Open data curated by Claude; not validated. Direct contributions only; HRC scores are the 118th Congress (2023-24) record."
 
 format:
   html:

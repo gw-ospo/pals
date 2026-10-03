@@ -1,0 +1,5 @@
+::: {.note-box role="note"}
+**Open data, curated by Claude, not validated.** This dataset is open. It was assembled and matched by
+Claude (an AI assistant) and has not been independently validated against the FEC or HRC sources.
+Verify before relying on it. See [Methodology](methodology.qmd#data-status).
+:::

@@ -52,11 +52,11 @@ def test_non_candidate_and_refund_types_excluded():
 
 def test_bin_summary_zero_filled_and_sums():
     t = pd.DataFrame({"pac": ["Google", "Google"], "person_key": ["a", "b"], "cycle": ["2024", "2026"],
-                      "dollars": [100.0, 300.0], "score_bin": ["0", "100"]})
+                      "dollars": [100.0, 300.0], "score_bin": ["0", "100"], "race": ["House", "Senate"]})
     s = bin_summary(t, ["Google", "Anthropic"])
-    g = s[(s.pac == "Google") & (s.cycle == "All")]
+    g = s[(s.pac == "Google") & (s.cycle == "All") & (s.office == "All")]
     assert list(g["score_bin"]) == BINS and g["dollars"].sum() == 400.0 and g["share"].sum() == pytest.approx(1)
-    a = s[(s.pac == "Anthropic") & (s.cycle == "All")]
+    a = s[(s.pac == "Anthropic") & (s.cycle == "All") & (s.office == "All")]
     assert len(a) == 7 and a["dollars"].sum() == 0 and a["share"].sum() == 0
 
 
@@ -65,10 +65,33 @@ def test_pipeline_invariants(tmp_path):
     t = run(DATA, tmp_path)
     totals, summ = t["pac_candidate_totals"], t["pac_bin_summary"]
     direct = totals.groupby("pac")["dollars"].sum().round(2)
-    allsum = summ[summ.cycle == "All"].groupby("pac", observed=True)["dollars"].sum().round(2)
+    allsum = summ[(summ.cycle == "All") & (summ.office == "All")].groupby("pac", observed=True)["dollars"].sum().round(2)
     for pac in direct.index:
         assert allsum[pac] == direct[pac]
     assert (allsum.drop(direct.index) == 0).all()  # Anthropic present with zeros
     assert set(summ["pac"]) >= {"Google", "Anthropic"}
+    # office slices add up to the All view
+    by_office = (summ[summ.cycle == "All"].groupby(["pac", "office"], observed=True)["dollars"].sum().unstack())
+    assert ((by_office[["House", "Senate"]].sum(axis=1) - by_office["All"]).abs() < 0.01).all()
     rec = t["donation_reconciliation"]
     assert ((rec.direct_to_candidates + rec.excluded_no_candidate - rec.total_24k_deduplicated).abs() < 0.01).all()
+
+
+def test_office_split_and_person_counted_once():
+    # one person gives to two races: counted once under All, once per office otherwise
+    t = pd.DataFrame({"pac": ["Google"] * 3, "person_key": ["a", "a", "b"], "cycle": ["2024"] * 3,
+                      "dollars": [100.0, 200.0, 50.0], "score_bin": ["0", "0", "100"],
+                      "race": ["House", "Senate", "House"]})
+    s = bin_summary(t, ["Google"])
+    s = s[(s.cycle == "All")].set_index(["office", "score_bin"])
+    assert s.loc[("All", "0"), "candidates"] == 1 and s.loc[("All", "0"), "dollars"] == 300.0
+    assert s.loc[("House", "0"), "candidates"] == 1 and s.loc[("Senate", "0"), "candidates"] == 1
+    for b in ("0", "100"):
+        parts = sum(s.loc[(o, b), "dollars"] for o in ("House", "Senate"))
+        assert parts == s.loc[("All", b), "dollars"]
+
+
+def test_contribution_office_fallback():
+    from pals.donations import contribution_office
+    got = contribution_office(pd.Series(["S", None, None]), pd.Series(["H1", "H2", "S3"]))
+    assert list(got) == ["Senate", "House", "Senate"]

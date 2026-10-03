@@ -12,6 +12,10 @@ BINS = ["0", "1-24", "25-49", "50-74", "75-99", "100", "No score"]
 BIN_COLORS = ["#f6dfdb", "#e8b4ac", "#d4857c", "#b8514c", "#9a2325", "#780000", "#8a8a8a"]
 ACCENT = "#780000"
 
+# One wording everywhere: README, page banner, footer, chart subtitles, table caption.
+NOTICE = "Open data curated by Claude; not validated."
+OFFICE_OPTIONS = ["All", "House", "Senate"]
+
 
 def load() -> dict[str, pd.DataFrame]:
     summary = pd.read_csv(PROCESSED / "pac_bin_summary.csv", dtype={"cycle": str})

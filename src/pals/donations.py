@@ -25,6 +25,14 @@ PAC_SHORT_NAMES = {
 
 BINS = ["0", "1-24", "25-49", "50-74", "75-99", "100", "No score"]
 CYCLES = ["2024", "2026"]
+OFFICES = ["House", "Senate"]
+OFFICE_NAMES = {"H": "House", "S": "Senate"}
+
+
+def contribution_office(office: pd.Series, candidate_id: pd.Series) -> pd.Series:
+    """Race the money was given for: row office, falling back to the candidate id prefix."""
+    letter = office.fillna(candidate_id.str[0])
+    return letter.map(OFFICE_NAMES)
 
 
 def score_bin(score: float | None) -> str:
@@ -80,13 +88,14 @@ def candidate_totals(direct: pd.DataFrame, all_pacs: dict[str, str]) -> pd.DataF
         .rename(columns={"office": "office"})
     )
     attrs.columns = ["name", "office", "state", "district"]
+    direct = direct.assign(race=contribution_office(direct["candidate_office"], direct["candidate_id"]))
     totals = (
-        direct.groupby(["pac", "candidate_id", "cycle"])
+        direct.groupby(["pac", "candidate_id", "cycle", "race"])
         .agg(dollars=("amount", "sum"), contributions=("amount", "size"), sub_id_latest=("sub_id_num", "max"))
         .reset_index()
     )
     out = totals.merge(attrs, left_on="candidate_id", right_index=True, how="left")
-    return out.sort_values(["pac", "cycle", "candidate_id"]).reset_index(drop=True)
+    return out.sort_values(["pac", "cycle", "candidate_id", "race"]).reset_index(drop=True)
 
 
 def reconcile(deduped: pd.DataFrame, pacs: list[str]) -> pd.DataFrame:
@@ -173,24 +182,32 @@ def score_recipients(
 
 
 def bin_summary(cand_totals: pd.DataFrame, pacs: list[str]) -> pd.DataFrame:
-    """Dollars, distinct candidates and share per PAC x cycle x bin (zero-filled)."""
+    """Dollars, distinct candidates and share per PAC x cycle x office x bin (zero-filled).
+
+    `cycle` and `office` use `All` for the combined view. A person who ran for both
+    chambers is counted once under office `All`.
+    """
     parts = []
-    scopes = [(c, cand_totals[cand_totals["cycle"] == c]) for c in CYCLES] + [("All", cand_totals)]
-    for cycle, scope in scopes:
-        per_cand = scope.groupby(["pac", "person_key", "score_bin"], as_index=False)["dollars"].sum()
-        g = per_cand.groupby(["pac", "score_bin"]).agg(
-            dollars=("dollars", "sum"), candidates=("person_key", lambda s: int((per_cand.loc[s.index, "dollars"] != 0).sum()))
-        )
-        full = pd.MultiIndex.from_product([pacs, BINS], names=["pac", "score_bin"])
-        g = g.reindex(full, fill_value=0).reset_index()
-        total = g.groupby("pac")["dollars"].transform("sum")
-        g["share"] = (g["dollars"] / total.where(total != 0)).fillna(0.0)
-        g.insert(1, "cycle", cycle)
-        parts.append(g)
+    cycle_scopes = [(c, cand_totals[cand_totals["cycle"] == c]) for c in CYCLES] + [("All", cand_totals)]
+    for cycle, cscope in cycle_scopes:
+        office_scopes = [(o, cscope[cscope["race"] == o]) for o in OFFICES] + [("All", cscope)]
+        for office, scope in office_scopes:
+            per_cand = scope.groupby(["pac", "person_key", "score_bin"], as_index=False)["dollars"].sum()
+            counts = per_cand[per_cand["dollars"] != 0].groupby(["pac", "score_bin"]).size()
+            g = per_cand.groupby(["pac", "score_bin"])["dollars"].sum().to_frame()
+            g["candidates"] = counts
+            full = pd.MultiIndex.from_product([pacs, BINS], names=["pac", "score_bin"])
+            g = g.reindex(full).fillna({"dollars": 0.0, "candidates": 0}).reset_index()
+            g["candidates"] = g["candidates"].astype(int)
+            total = g.groupby("pac")["dollars"].transform("sum")
+            g["share"] = (g["dollars"] / total.where(total != 0)).fillna(0.0)
+            g.insert(1, "cycle", cycle)
+            g.insert(2, "office", office)
+            parts.append(g)
     out = pd.concat(parts, ignore_index=True)
     out["score_bin"] = pd.Categorical(out["score_bin"], BINS, ordered=True)
     out["dollars"] = out["dollars"].round(2)
-    return out.sort_values(["pac", "cycle", "score_bin"]).reset_index(drop=True)
+    return out.sort_values(["pac", "cycle", "office", "score_bin"]).reset_index(drop=True)
 
 
 def build(data_dir: Path) -> dict[str, pd.DataFrame]:

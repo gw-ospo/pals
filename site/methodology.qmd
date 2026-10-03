@@ -2,6 +2,8 @@
 title: "Methodology and caveats"
 ---
 
+{{< include _notice.qmd >}}
+
 ```{python}
 import sys; sys.path.insert(0, ".")
 import pandas as pd
@@ -55,6 +57,24 @@ Matches that are ambiguous are left unscored. Candidates are placed in one bin:
 - **Name matching is automated.** A small number of manual overrides fix unusual FEC names. Mismatches can move dollars between bins.
 - **Anthropic.** Its PAC appears in the data with no direct candidate contributions, so its displays are all zero.
   The figures may change with more years of data or when indirect contributions are added.
+
+## Data status {#data-status}
+
+This is **open data curated by Claude, an AI assistant, and it has not been validated.** In practice:
+
+- Name matching between FEC recipients and the HRC scorecard is automated; a few unusual names were fixed by hand.
+  Mismatches can move dollars between bins.
+- Aggregation (deduplicating amended filings, netting refunds, assigning cycles and offices) was done by code
+  that is tested but has not been independently checked against the FEC or HRC sources.
+- Please verify any figure against the original FEC filings and the HRC scorecard before citing or relying on it.
+  Corrections are welcome as issues or pull requests on [GitHub](https://github.com/gw-ospo/pals).
+
+## Office
+
+Each direct contribution is assigned to the race it was made for: House or Senate. The office comes from
+the FEC record of the contribution, or from the candidate id prefix (H or S) when missing. A candidate who ran for both
+chambers appears in each office and is counted once under *All*. Only House and Senate
+candidates are included.
 
 ## Reconciliation
 

@@ -2,7 +2,9 @@
 title: "Candidates behind each bin"
 ---
 
-Choose a PAC and a score bin to see the candidates who received its direct contributions.
+{{< include _notice.qmd >}}
+
+Choose a PAC, an office and a score bin to see the candidates who received its direct contributions.
 Sort by clicking a column heading, or type in the search box.
 
 ```{python}
@@ -14,7 +16,7 @@ from pals_site import BINS, load
 t = load()["totals"].copy()
 t["candidate"] = t["candidate_name"].map(display_name)
 t["party"] = t["party"].fillna("")
-keys = ["pac", "candidate_id", "candidate", "party", "state", "office", "score_bin", "match_method"]
+keys = ["pac", "candidate_id", "candidate", "party", "state", "race", "score_bin", "match_method"]
 t["score"] = t["score"].astype(float)
 by_cycle = t.pivot_table(index=keys, columns="cycle", values="dollars", aggfunc="sum", fill_value=0).reset_index()
 by_cycle.columns = [str(c) for c in by_cycle.columns]
@@ -32,20 +34,23 @@ ojs_define(rows=records, bins=BINS, pacs=sorted(t["pac"].unique().tolist() + ["A
 ```{ojs}
 rowsData = rows
 viewof pacSel = Inputs.select([...new Set(pacs)], {label: "PAC", value: "Google"})
+viewof officeSel = Inputs.select(["All offices", "House", "Senate"], {label: "Office", value: "All offices"})
 viewof binSel = Inputs.select(["All bins", ...bins], {label: "HRC score bin", value: "All bins"})
 ```
 
 ```{ojs}
-filtered = rowsData.filter(d => d.pac === pacSel && (binSel === "All bins" || d.score_bin === binSel))
+filtered = rowsData.filter(d => d.pac === pacSel
+  && (officeSel === "All offices" || d.race === officeSel)
+  && (binSel === "All bins" || d.score_bin === binSel))
 viewof found = Inputs.search(filtered, {placeholder: "Search candidates"})
 ```
 
 ```{ojs}
 filtered.length === 0
-  ? html`<p class="note-box">No direct candidate contributions from ${pacSel} in this bin.</p>`
+  ? html`<p class="note-box">No direct candidate contributions from ${pacSel} for this office and bin.</p>`
   : Inputs.table(found, {
-      columns: ["candidate", "party", "state", "office", "score", "score_bin", "2024", "2026", "total"],
-      header: {candidate: "Candidate", party: "Party", state: "State", office: "Office", score: "HRC score",
+      columns: ["candidate", "party", "state", "race", "score", "score_bin", "2024", "2026", "total"],
+      header: {candidate: "Candidate", party: "Party", state: "State", race: "Office", score: "HRC score",
                score_bin: "Bin", "2024": "2024 cycle", "2026": "2026 cycle", total: "Total"},
       format: {"2024": d => d3.format("$,.0f")(d), "2026": d => d3.format("$,.0f")(d),
                total: d => d3.format("$,.0f")(d), score: d => d == null ? "n/a" : d},
@@ -53,5 +58,6 @@ filtered.length === 0
     })
 ```
 
-Dollars are net of refunds and voided contributions. *HRC score* is the 118th Congress score of the matched
+*Office* is the race the contribution was made for; a candidate who ran for both chambers can appear twice.
+Dollars are net of refunds and voided contributions. **Open data curated by Claude; not validated.** *HRC score* is the 118th Congress score of the matched
 scorecard entry; candidates with no match or no score are in *No score*.
